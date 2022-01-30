@@ -111,6 +111,9 @@ export const Generator = () => {
           <button
             className="password-generator__action generate"
             onClick={() => passwordGenerate(conf.length)}
+            disabled={
+              !(conf.uppercase || conf.lowercase || conf.numbers || conf.symbols)
+            }
           >
             Generate
           </button>
