@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Filter } from "../Filter/Filter";
+import { Slider } from "../Slider/Slider";
 import "../styles.scss";
 
 export const Generator = () => {
@@ -40,7 +42,7 @@ export const Generator = () => {
         Math.floor(Math.random() * passwordSymbols.length)
       );
     }
-
+    console.log(password);
     setGeneratedPassword(password);
   };
 
@@ -55,75 +57,27 @@ export const Generator = () => {
           <p className="password-length__value">
             Password length: <span>{conf.length}</span>
           </p>
-          <div className="password-generator__filter filter__range">
-            <span>4</span>
-            <input
-              name="length"
-              type="range"
-              min={4}
-              max={32}
-              className="password-length"
-              value={conf.length}
-              onChange={(event) => handleChange(event)}
-            />
-            <span>32</span>
-          </div>
-          <div className="password-generator__filter">
-            <span>Include uppercase</span>
-            <label class="switch">
-              <input
-                type="checkbox"
-                name="uppercase"
-                type="checkbox"
-                className="password-generator-checkbox"
-                checked={conf.uppercase}
-                onChange={(event) => handleChange(event)}
-              />
-              <span class="slider"></span>
-            </label>
-          </div>
-          <div className="password-generator__filter">
-            <span>Include lowercase</span>
-            <label class="switch">
-              <input
-                type="checkbox"
-                name="lowercase"
-                type="checkbox"
-                className="password-generator-checkbox"
-                checked={conf.lowercase}
-                onChange={(event) => handleChange(event)}
-              />
-              <span class="slider"></span>
-            </label>
-          </div>
-          <div className="password-generator__filter">
-            <span>Include numbers</span>
-            <label class="switch">
-              <input
-                type="checkbox"
-                name="numbers"
-                type="checkbox"
-                className="password-generator-checkbox"
-                checked={conf.numbers}
-                onChange={(event) => handleChange(event)}
-              />
-              <span class="slider"></span>
-            </label>
-          </div>
-          <div className="password-generator__filter">
-            <span>Include symbols</span>
-            <label class="switch">
-              <input
-                type="checkbox"
-                name="symbols"
-                type="checkbox"
-                className="password-generator-checkbox"
-                checked={conf.symbols}
-                onChange={(event) => handleChange(event)}
-              />
-              <span class="slider"></span>
-            </label>
-          </div>
+          <Slider min={4} max={32} conf={conf} handleChange={handleChange} />
+          <Filter
+            symbolsSet={"uppercase"}
+            conf={conf}
+            handleChange={handleChange}
+          />
+          <Filter
+            symbolsSet={"lowercase"}
+            conf={conf}
+            handleChange={handleChange}
+          />
+          <Filter
+            symbolsSet={"numbers"}
+            conf={conf}
+            handleChange={handleChange}
+          />
+          <Filter
+            symbolsSet={"symbols"}
+            conf={conf}
+            handleChange={handleChange}
+          />
         </div>
 
         <div className="password-generator__actions">
