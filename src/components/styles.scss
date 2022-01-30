@@ -1,0 +1,204 @@
+@import "../../vars.scss";
+
+.app {
+  height: 100vh;
+  width: 100vw;
+  background: $gray;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .password-generator {
+    width: 30rem;
+    height: 37.5rem;
+    border-radius: 0.8rem;
+    background: $black;
+    box-shadow: 0 0 0.6rem rgba(0, 0, 0, 0.45),
+      0 0.25rem 0.5rem rgba(0, 0, 0, 0.35), 0 0.5rem 0.8rem rgba(0, 0, 0, 0.15);
+    padding: 0.8rem;
+    color: $black;
+
+    display: flex;
+    flex-direction: column;
+
+    .password-generator__title {
+      font-size: 2rem;
+      text-align: center;
+      color: $gray;
+      margin-bottom: 0.25em;
+      text-transform: capitalize;
+    }
+
+    .password-generator-container {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: space-between;
+      flex: 1;
+    }
+
+    .password-generator__result-value {
+      background: $gray;
+      width: 80%;
+      height: 3.5rem;
+      margin: 0 auto;
+      border-radius: 0.8rem;
+      margin-bottom: 1rem;
+
+      font-weight: 500;
+      font-style: italic;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .password-generator__filters {
+      .password-length__value {
+        color: $gray;
+        text-align: center;
+        text-transform: uppercase;
+
+        span {
+          color: $orange;
+          font-weight: 500;
+        }
+      }
+
+      .filter__range {
+        color: $gray;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .password-generator__filter {
+        width: 80%;
+        height: 3rem;
+        padding: 1.5rem;
+        margin: 0 auto;
+        border-radius: 0.25rem;
+
+        background: #2b2a28;
+
+        color: $gray;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        span {
+          text-transform: capitalize;
+          font-style: italic;
+        }
+
+        &:not(:last-child) {
+          margin-bottom: 0.5rem;
+        }
+
+        .password-length {
+          -webkit-appearance: none;
+          appearance: none;
+          transition: transform 0.2s;
+          outline: none;
+          width: 85%;
+          height: 10px;
+          border-radius: 4px;
+          background: $gray;
+          margin: 0 auto;
+
+          &::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            background: $orange;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            transition: 0.3s ease;
+
+            &:hover {
+              transform: scale(1.2);
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+
+    .password-generator__actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .password-generator__action {
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        margin: 1rem auto 0;
+        height: 2.7rem;
+        width: 80%;
+        background: transparent;
+        border: 1px solid $orange;
+        border-radius: 0.25rem;
+        color: $orange;
+        cursor: pointer;
+        transition: 0.3s ease;
+
+        &:hover {
+          background: $orange;
+          color: $black;
+        }
+      }
+    }
+  }
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  transform: scale(0.8);
+
+  input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+
+    &:checked + .slider {
+      background-color: $orange;
+    }
+
+    &:checked + .slider:before {
+      -webkit-transform: translateX(26px);
+      -ms-transform: translateX(26px);
+      transform: translateX(26px);
+    }
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: 0.2s ease;
+    transition: 0.2s ease;
+    border-radius: 34px;
+
+    &:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      -webkit-transition: 0.25s;
+      transition: 0.25s;
+      border-radius: 50%;
+    }
+  }
+}
