@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-import { Filter } from "../Filter/Filter";
+import { generate } from "generate-password-browser";
 import { Slider } from "../Slider/Slider";
+import { Filter } from "../Filter/Filter";
+import React, { useState } from "react";
 import "../styles.scss";
 
 export const Generator = () => {
@@ -24,26 +25,52 @@ export const Generator = () => {
   };
 
   const passwordGenerate = (len) => {
-    const selection = {
-      lowercase: "abcdefghijklmnopqrstuvwxyz",
-      uppercase: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-      numbers: "1234567890",
-      symbols: "!@#$%^&*()|?_",
+    while (1) {
+      const password = generate(conf);
+      if (
+        __validateGeneratedPassword(
+          password,
+          conf.uppercase,
+          conf.lowercase,
+          conf.numbers,
+          conf.symbols
+        )
+      ) {
+        setGeneratedPassword(password);
+        break;
+      }
+    }
+  };
+
+  const __validateGeneratedPassword = (
+    password,
+    uppercaseBool,
+    lowercaseBool,
+    numbersBool,
+    symbolsBool
+  ) => {
+    const regexParts = {
+      uppercase: "(?=.*?[A-Z])",
+      lowercase: "(?=.*?[a-z])",
+      numbers: "(?=.*?[0-9])",
+      symbols: "(?=.*?[#?!@$%^&*-])",
     };
 
-    const passwordSymbols = Object.keys(selection)
-      .map((part) => conf[part] && selection[part])
-      .filter((elem) => elem !== false)
-      .join("");
+    const symbolMustBe = {
+      uppercase: uppercaseBool,
+      lowercase: lowercaseBool,
+      numbers: numbersBool,
+      symbols: symbolsBool,
+    };
 
-    let password = "";
-    for (let elem = 0; elem < len; elem++) {
-      password += passwordSymbols.charAt(
-        Math.floor(Math.random() * passwordSymbols.length)
-      );
-    }
-    console.log(password);
-    setGeneratedPassword(password);
+    const regex = new RegExp(
+      Object.keys(symbolMustBe)
+        .map((k) => (symbolMustBe[k] ? regexParts[k] : false))
+        .filter((el) => el !== false)
+        .join("")
+    );
+
+    return regex.test(password);
   };
 
   return (
