@@ -15,6 +15,7 @@ export const Generator = () => {
 
   const [conf, setConf] = useState(initialConf);
   const [generatedPassword, setGeneratedPassword] = useState("");
+  const [status, setStatus] = useState("Click to copy!");
 
   const handleChange = (event) => {
     // Filter changes handler
@@ -27,12 +28,15 @@ export const Generator = () => {
 
   const copyGeneratedPassword = (event) => {
     // Copy generated password to the clipboard after click on the .password-generator__result-value
-    const password = event.target.textContent;
-    navigator.clipboard.writeText(password);
+    if (!generatedPassword) return;
+    setStatus("Copied!");
+    navigator.clipboard.writeText(generatedPassword);
   };
 
   const passwordGenerate = () => {
     // Password generation until it matches the filters
+    status === "Copied!" && setStatus("Click to copy!");
+
     while (1) {
       const password = generate(conf);
       if (
@@ -91,11 +95,11 @@ export const Generator = () => {
           onClick={(event) => copyGeneratedPassword(event)}
         >
           {generatedPassword}
+          {generatedPassword && (
+            <div className="password--status">{status}</div>
+          )}
         </div>
         <div className="password-generator__filters">
-          <p className="password-length__value">
-            Password length: <span>{conf.length}</span>
-          </p>
           <Slider min={4} max={32} conf={conf} handleChange={handleChange} />
           <Filter
             symbolsSet={"uppercase"}
