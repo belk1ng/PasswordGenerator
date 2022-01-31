@@ -24,7 +24,7 @@ export const Generator = () => {
       : setConf({ ...conf, [target.name]: target.value });
   };
 
-  const passwordGenerate = (len) => {
+  const passwordGenerate = () => {
     while (1) {
       const password = generate(conf);
       if (
@@ -112,7 +112,12 @@ export const Generator = () => {
             className="password-generator__action generate"
             onClick={() => passwordGenerate(conf.length)}
             disabled={
-              !(conf.uppercase || conf.lowercase || conf.numbers || conf.symbols)
+              !(
+                conf.uppercase ||
+                conf.lowercase ||
+                conf.numbers ||
+                conf.symbols
+              )
             }
           >
             Generate
