@@ -100,9 +100,6 @@ export const Generator = () => {
           )}
         </div>
         <div className="password-generator__filters">
-          <p className="password-length__value">
-            Password length: <span>{conf.length}</span>
-          </p>
           <Slider min={4} max={32} conf={conf} handleChange={handleChange} />
           <Filter
             symbolsSet={"uppercase"}
