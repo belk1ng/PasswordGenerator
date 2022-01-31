@@ -17,6 +17,7 @@ export const Generator = () => {
   const [generatedPassword, setGeneratedPassword] = useState("");
 
   const handleChange = (event) => {
+    // Filter changes handler
     const target = event.target;
 
     target.type === "checkbox"
@@ -24,7 +25,14 @@ export const Generator = () => {
       : setConf({ ...conf, [target.name]: target.value });
   };
 
+  const copyGeneratedPassword = (event) => {
+    // Copy generated password to the clipboard after click on the .password-generator__result-value
+    const password = event.target.textContent;
+    navigator.clipboard.writeText(password);
+  };
+
   const passwordGenerate = () => {
+    // Password generation until it matches the filters
     while (1) {
       const password = generate(conf);
       if (
@@ -49,6 +57,7 @@ export const Generator = () => {
     numbersBool,
     symbolsBool
   ) => {
+    // Validation generated password by regex
     const regexParts = {
       uppercase: "(?=.*?[A-Z])",
       lowercase: "(?=.*?[a-z])",
@@ -77,7 +86,10 @@ export const Generator = () => {
     <div className="password-generator">
       <h1 className="password-generator__title">Password generator</h1>
       <div className="password-generator-container">
-        <div className="password-generator__result-value">
+        <div
+          className="password-generator__result-value"
+          onClick={(event) => copyGeneratedPassword(event)}
+        >
           {generatedPassword}
         </div>
         <div className="password-generator__filters">
